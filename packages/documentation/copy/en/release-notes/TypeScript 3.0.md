@@ -142,7 +142,7 @@ type T04 = unknown & string[]; // string[]
 type T05 = unknown & unknown; // unknown
 type T06 = unknown & any; // any
 
-// In a union an unknown absorbs everything
+// In a union an unknown absorbs everything but any
 
 type T10 = unknown | null; // unknown
 type T11 = unknown | undefined; // unknown
@@ -251,7 +251,7 @@ function f23<T extends unknown>(x: T) {
 function f24(x: { [x: string]: unknown }) {
   x = {};
   x = { a: 5 };
-  x = [1, 2, 3];
+  x = [1, 2, 3]; // Error
   x = 123; // Error
 }
 
@@ -266,7 +266,7 @@ function f25() {
 
 function f26(x: {}, y: unknown, z: any) {
   let o1 = { a: 42, ...x }; // { a: number }
-  let o2 = { a: 42, ...x, ...y }; // unknown
+  let o2 = { a: 42, ...x, ...y }; // any
   let o3 = { a: 42, ...x, ...y, ...z }; // any
 }
 
